@@ -955,7 +955,10 @@ tcp_send_empty_ack(struct tcp_pcb *pcb)
   pcb->ts_lastacksent = pcb->rcv_nxt;
 
   if (pcb->flags & TF_TIMESTAMP) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic warning "-Wcast-align"
     tcp_build_timestamp_option(pcb, (u32_t *)(tcphdr + 1));
+#pragma GCC diagnostic pop
   }
 #endif
 
